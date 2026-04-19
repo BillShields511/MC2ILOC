@@ -1,4 +1,4 @@
-This README.txt explains the purpose of each of the test cases as well as how to build and run the system
+This file explains how to build and run the system as well as the purpose of each of the test cases
 See Usage #1 and Usage #2 below for exact usage!
 
 There are four Input Samples included. 

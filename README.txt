@@ -10,4 +10,5 @@ MC2ILOC/
 Note: nickle is NOT required for part1.1
 nickle can be found at: https://github.com/drz64/nickle.git
 
-The main README.txt for the project can be found within the part1.1/ subdirectory
+A README.txt describing the STRUCTURE AND SCOPE of the project can be found within the part1.1/ subdirectory
+A README.txt describing how to BUILD AND RUN the project can be found within the part1.1/input-samples/ subdirectory
