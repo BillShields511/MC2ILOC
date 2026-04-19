@@ -1,4 +1,4 @@
-README.md for expected testcase input/output and usage instructions - See Usage #1 and Usage #2 below for exact usage!
+README.txt for expected testcase input/output and usage instructions - See Usage #1 and Usage #2 below for exact usage!
 
 Four Input Samples. 
 - miniCTest1.c and miniCTest2.c are valid c programs, and should compile with an exit code of 0
