@@ -1,0 +1,72 @@
+Part 1 Acceptance Rubric
+
+Legend: [X] done   [p] partial   [ ] not started
+
+1) Build + Run Baseline
+- [X] Project builds from clean state using documented commands.
+- [X] Frontend runs on a source file input.
+- [X] No ILOC/codegen is required or invoked in Part 1.
+- [X] README.txt includes dependencies + exact build/run commands.
+
+2) Lexer (ANTLR4)
+- [X] Recognizes keywords, identifiers, literals, operators, delimiters.
+- [X] Supports // and /* ... */ comments.
+- [X] Comments are skipped (not passed into AST).
+- [X] Handles char literals including escapes ('\n', '\'', '\\', etc.).
+- [X] Reports lexical errors with line/column.
+
+3) Parser / Grammar
+- [X] Supports program as function-definition list.
+- [X] Supports declarations for int, bool, char.
+- [X] Supports arrays with explicit syntax (int a[5];, optional full initializer with exact size).
+- [X] Supports statements: expression statement, if/else, while, return, block.
+- [X] Supports expressions with precedence: unary, multiplicative, additive, comparison, logical.
+- [X] Supports function definitions and function calls.
+- [X] Enforces int main() as the only valid main signature.
+- [X] Treats preprocessor directives (including #include) as invalid syntax.
+
+4) AST Construction
+- [X] Parse tree is converted into AST nodes (not just printed parse tree).
+- [X] AST has node types for declarations, statements, expressions, function defs/calls, arrays.
+- [X] Comments do not appear in AST.
+- [X] AST generation succeeds for all valid sample programs.
+
+5) Semantic Analysis
+- [X] Symbol table with scoped lookup (nested blocks/functions).
+- [X] Detects undeclared identifier use.
+- [X] Detects duplicate declarations in same scope.
+- [X] Function call checks: name exists, arity/types match parameters.
+- [X] Return expression type matches function return type.
+- [X] if / while condition must be bool.
+- [X] Arithmetic operators only on numeric-compatible operands.
+- [X] Logical operators only on bool.
+- [X] Comparisons require compatible types.
+- [X] Array index must be int.
+- [X] Array element type usage matches declaration.
+- [X] Array initializer length/type must exactly match declared array size/type.
+- [X] Collects multiple semantic errors in one run (no fail-fast).
+
+6) Error Reporting Quality
+- [X] Errors include line/column and clear message.
+- [X] Distinguishes parse errors vs semantic errors.
+- [X] Continues analysis where possible to report additional semantic errors.
+
+7) Driver Output Behavior
+- [X] For valid program: clear success result (e.g., "parse + semantic checks passed").
+- [X] For invalid program: prints all gathered semantic errors.
+- [X] Exit status or output convention is consistent and documented in README.txt.
+
+8) Required Samples
+- [X] At least 2 valid sample programs (input-samples/miniCTest1.c, miniCTest2.c):
+- [X] includes functions, arrays, control flow, expressions.
+- [X] includes comment usage and nested scopes.
+- [X] At least 2 invalid sample programs (miniCTest3.c, miniCTest4.c):
+- [X] one with syntax error(s) (miniCTest3.c).
+- [X] one with multiple semantic error types in same run (see input-samples/miniCTest4.c).
+- [ ] Expected outputs (or screenshots) included for each sample.
+
+9) Final Part 1 Readiness Gate
+- [p] Fresh clone/build/run works using only README.txt.
+- [ ] All sample tests run and match expected output.
+- [X] No Part 1 requirement depends on Part 2 codegen.
+- [p] Scope matches your defined constraints exactly (no missing required feature).
