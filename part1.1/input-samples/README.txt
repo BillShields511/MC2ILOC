@@ -1,9 +1,13 @@
 This file explains how to build and run the system as well as the purpose of each of the test cases
 See Usage #1 and Usage #2 below for exact usage!
 
-There are four Input Samples included. 
+There are five Input Samples included. 
 - miniCTest1.c and miniCTest2.c are valid c programs, and should compile with an exit code of 0
 - miniCTest3.c and miniCTest4.c are invalid c programs, and should return errors through stdout
+
+- miniCTest5.c serves as an example so that I can include how the ILOC output will look
+  when MC2ILOC is complete. In its current state, MC2ILOC does not generate iloc programs
+  The included expected output file: miniCTest5-ILOC.txt is implimented by hand
 
 miniCTest1.c — valid, demonstrates complete mini-c language coverage
     Includes:
@@ -47,6 +51,12 @@ miniCTest4.c — invalid, semantic failure only
         return uses an undeclared name.
     
     Expected Output: exit with error in parsing stage
+
+miniCTest5.c — valid, for handmade ILOC generation demo
+    Includes:
+        two int assignments
+        int addition
+        return zero
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

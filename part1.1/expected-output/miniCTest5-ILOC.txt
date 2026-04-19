@@ -1,0 +1,29 @@
+// Handmade ILOC expectation for input-samples/miniCTest5.c
+//
+//   int main() {
+//     int x = 1;
+//     int y = 2;
+//     int z = x + y;
+//     return 0;
+//   }
+
+.code
+loadI 4096 => r1
+loadI 1 => r2
+storeAI r2 => r1, 0
+addI r1, 8 => r1
+loadI 2 => r2
+storeAI r2 => r1, 0
+addI r1, 8 => r1
+subI r1, 8 => r1
+loadAI r1, 0 => r3
+subI r1, 8 => r1
+loadAI r1, 0 => r2
+add r2, r3 => r2
+storeAI r2 => r1, 0
+addI r1, 8 => r1
+subI r1, 8 => r1
+loadAI r1, 0 => r2
+p_int r2
+loadI 0 => r2
+halt
