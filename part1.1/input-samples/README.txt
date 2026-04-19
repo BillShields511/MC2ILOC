@@ -1,41 +1,80 @@
-Input samples (four files: miniCTest1.c … miniCTest4.c)
+README.md for expected testcase input/output and usage instructions - See Usage #1 and Usage #2 below for exact usage!
 
-miniCTest1.c — valid, language coverage
-  Single-line // and multi-line /* */ comments each contain fake declarations to show
-  comments are skipped. One helper int g(int,int) plus int main(): types int/bool/char,
-  arrays and brace initializers, scalar initializer, parameters, if/else, while, empty
-  statement, assignment and all expression classes (including unary -/!, binary ops,
-  calls, array access, parentheses, int/char/bool literals). Expect: exit 0, AST then
-  “Parse and semantic checks passed.”
+Four Input Samples. 
+- miniCTest1.c and miniCTest2.c are valid c programs, and should compile with an exit code of 0
+- miniCTest3.c and miniCTest4.c are invalid c programs, and should compile with an exit code of 1 and 2 respectively
 
-miniCTest2.c — valid, nesting
-  Program uses nested { } blocks (shadowing), a small helper function,
-  and nested calls id(id(b)). Expect: exit 0.
+miniCTest1.c — valid, demonstrates complete mini-c language coverage
+    Includes:
+    Single-line comments //
+    Multi-line comments /*
+    Helper Function: int g(int,int)
+    Main Function: int main()
+    Variable and Arrays of types: int/bool/char
+    Logical blocks: if/else, while
+    Statement, assignment, expressions
+        unary -/!
+        binary ops,
+        array access
+        parentheses
+        int/char/bool literals
+    
+    Expected output: exit 0, AST output, then “Parse and semantic checks passed.”
 
-miniCTest3.c — lexer/parser failure
-  Missing ‘;’ before ‘}’. Expect: exit 1; stderr includes “[parse]” (ANTLR may also
-  print a line about the syntax error).
 
-miniCTest4.c — semantic failure only
-  Parses; bool assigned an int, and return uses an undeclared name. Expect: exit 2;
-  “[semantic]” lines with line/column.
+miniCTest2.c — valid, demonstrates scoping/nested function calls
+    Program uses nested { } blocks, a small helper function, and nested calls id(id(b))
+    
+    Expected Output: exit 0, AST output, then "Parse and semantic checks passed."
 
 
-Usage #1 — TestRig (lexer/parser only; no AST or semantics)
-  From part1.1:
+miniCTest3.c — invalid, lexer/parser failure
+    Demonstrates lexical analysis
+    Missing ‘;’ before ‘}’
+    
+    Expected Output: exit 1
 
-  $ antlr4 -no-listener -visitor miniCLexer.g4 miniCParser.g4
-  $ CP=$(grep '^CLASSPATH=' "$(which antlr4)" | cut -d= -f2-):.
-  $ javac -cp "$CP" miniCLexer.java miniCParser.java miniCParserBaseVisitor.java miniCParserVisitor.java
-  $ java -cp "$CP:." org.antlr.v4.gui.TestRig miniC program -tree < input-samples/miniCTest1.c
+
+miniCTest4.c — invalid, semantic failure only
+    Demonstrates semantic analysis/traversal of parse tree
+    Errors:
+        bool assigned an int value
+        return uses an undeclared name.
+    
+    Expected Output: exit 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Usage:
+
+Usage #1 — antlr TestRig (tests lexer/parser only; no AST or semantics)
+Run the following four commands from within MC2ILOC/part1.1
+    $ antlr4 -no-listener -visitor miniCLexer.g4 miniCParser.g4
+    $ CP=$(grep '^CLASSPATH=' "$(which antlr4)" | cut -d= -f2-):.
+    $ javac -cp "$CP" miniCLexer.java miniCParser.java miniCParserBaseVisitor.java miniCParserVisitor.java
+    
+    Either: (for command line -tree output)
+    $ java -cp "$CP:." org.antlr.v4.gui.TestRig miniC program -tree < input-samples/miniCTest1.c
+    
+    OR: (for -gui output)
+    $ java -cp "$CP:." org.antlr.v4.gui.TestRig miniC program -gui < input-samples/miniCTest1.c
 
 
 Usage #2 — Full driver (parse, AST, semantic analysis)
-  From part1.1:
-
+Run the following four commands from within MC2ILOC/part1.1
   $ antlr4 -no-listener -visitor miniCLexer.g4 miniCParser.g4
   $ CP=$(grep '^CLASSPATH=' "$(which antlr4)" | cut -d= -f2-):.
   $ javac -cp "$CP" miniCLexer.java miniCParser.java miniCParserBaseVisitor.java miniCParserVisitor.java SourceSpan.java miniCAstBuilder.java SemType.java VarSymbol.java FuncSymbol.java Scope.java SemanticDiagnostics.java SemanticAnalyzer.java Main.java
   $ java -cp "$CP:." Main input-samples/miniCTest1.c
 
-Exit status for Main: 0 = OK, 1 = parse error, 2 = semantic error.
+Exit status:
+- 0 = OK
+- 1 = parse error
+- 2 = semantic error.
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Cleanup (remove all antlr/java generated files):
+
+$ rm -f *.interp *.tokens miniCLexer.java miniCParser.java miniCParserBaseVisitor.java miniCParserVisitor.java *.class

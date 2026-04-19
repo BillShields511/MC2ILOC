@@ -1,0 +1,44 @@
+bshields@BillsLaptop:~/github-staging/MC2ILOC$ ls
+README.md  nickle  part1.1
+bshields@BillsLaptop:~/github-staging/MC2ILOC$ cd part1.1/
+bshields@BillsLaptop:~/github-staging/MC2ILOC/part1.1$ antlr4 -no-listener -visitor miniCLexer.g4 miniCParser.g4
+bshields@BillsLaptop:~/github-staging/MC2ILOC/part1.1$ CP=$(grep '^CLASSPATH=' "$(which antlr4)" | cut -d= -f2-):.
+bshields@BillsLaptop:~/github-staging/MC2ILOC/part1.1$ javac -cp "$CP" miniCLexer.java miniCParser.java miniCParserBaseVisitor.java miniCParserVisitor.java SourceSpan.java miniCAstBuilder.java SemType.java VarSymbol.java FuncSymbol.java Scope.java SemanticDiagnostics.java SemanticAnalyzer.java Main.java
+bshields@BillsLaptop:~/github-staging/MC2ILOC/part1.1$ java -cp "$CP:." Main input-samples/miniCTest1.c
+--- AST ---
+int g(int a, int b) {
+  bool u;
+  char v;
+  int w[2] = {1, 2};
+  int k = 0;
+  (u = true);
+  (v = '\\');
+  if ((((((a != b) && (((a == b) != u) || (!u))) && ((a < b) || (a <= b))) && (a > (-1))) && (b >= 0))) {
+  while ((a < b)) {
+  (a = (a + 1));
+  (w[0] = (((w[1] * 2) / 2) % 2));
+  (k = (k + 1));
+  ;
+}
+} else {
+  (v = '\'');
+  if ((!u)) {
+  (k = k);
+}
+}
+  return ((((a + w[0]) + (-b)) + k) + v);
+}
+int main() {
+  int x = 0;
+  bool y;
+  char z;
+  (x = g(0, 1));
+  (y = false);
+  (z = 'a');
+  if ((y || (z == '\0'))) {
+  (x = (x + 1));
+}
+  (x = (x - 0));
+  return x;
+}
+Parse and semantic checks passed.

@@ -1,0 +1,25 @@
+bshields@BillsLaptop:~/github-staging/MC2ILOC$ ls
+README.md  nickle  part1.1
+bshields@BillsLaptop:~/github-staging/MC2ILOC$ cd part1.1/
+bshields@BillsLaptop:~/github-staging/MC2ILOC/part1.1$ antlr4 -no-listener -visitor miniCLexer.g4 miniCParser.g4
+bshields@BillsLaptop:~/github-staging/MC2ILOC/part1.1$ CP=$(grep '^CLASSPATH=' "$(which antlr4)" | cut -d= -f2-):.
+bshields@BillsLaptop:~/github-staging/MC2ILOC/part1.1$ javac -cp "$CP" miniCLexer.java miniCParser.java miniCParserBaseVisitor.java miniCParserVisitor.java SourceSpan.java miniCAstBuilder.java SemType.java VarSymbol.java FuncSymbol.java Scope.java SemanticDiagnostics.java SemanticAnalyzer.java Main.java
+bshields@BillsLaptop:~/github-staging/MC2ILOC/part1.1$ java -cp "$CP:." Main input-samples/miniCTest2.c
+--- AST ---
+int id(int x) {
+  return x;
+}
+int main() {
+  int a;
+  (a = 1);
+  {
+  int a;
+  (a = id(2));
+  {
+  int b;
+  (b = id(a));
+  return id(id(b));
+}
+}
+}
+Parse and semantic checks passed.
