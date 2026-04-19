@@ -3,8 +3,8 @@ Bill Shields - jxh608
 
 This file explains the structure and scope of the project
 
-FOR USAGE INSTRUCTIONS, SEE:
-input-examples/README.txt
+FOR INSTRUCTIONS ON HOW TO BUILD AND RUN THE SYSTEM, SEE:
+part1.1/input-samples/README.txt
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
