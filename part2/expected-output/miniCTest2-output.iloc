@@ -1,0 +1,72 @@
+.code
+loadI 0 => r0
+loadI 4096 => r1
+jumpI => fn_main
+fn_add: nop
+storeAI r_ra => r0, 24
+loadAI r0, 0 => r4
+storeAI r4 => r1, 0
+loadAI r0, 8 => r4
+storeAI r4 => r1, 8
+loadAI r1, 0 => r2
+loadAI r1, 8 => r3
+add r2, r3 => r4
+storeAI r4 => r1, 16
+loadAI r1, 16 => r2
+storeAI r2 => r0, 16
+loadAI r0, 24 => r5
+ret r5
+fn_scale: nop
+storeAI r_ra => r0, 48
+loadAI r0, 32 => r4
+storeAI r4 => r1, 0
+loadI 2 => r4
+storeAI r4 => r1, 8
+loadAI r1, 0 => r2
+loadAI r1, 8 => r3
+mult r2, r3 => r4
+storeAI r4 => r1, 16
+loadI 1 => r4
+storeAI r4 => r1, 24
+loadAI r1, 16 => r2
+loadAI r1, 24 => r3
+sub r2, r3 => r4
+storeAI r4 => r1, 32
+loadAI r1, 32 => r2
+storeAI r2 => r0, 40
+loadAI r0, 48 => r5
+ret r5
+fn_main: nop
+loadI 3 => r4
+storeAI r4 => r1, 0
+loadI 4 => r4
+storeAI r4 => r1, 8
+loadAI r1, 0 => r2
+storeAI r2 => r0, 0
+loadAI r1, 8 => r2
+storeAI r2 => r0, 8
+jsr fn_add
+loadAI r0, 16 => r4
+storeAI r4 => r1, 16
+loadAI r1, 16 => r2
+storeAI r2 => r0, 72
+loadAI r0, 72 => r4
+storeAI r4 => r1, 24
+loadAI r1, 24 => r2
+storeAI r2 => r0, 32
+jsr fn_scale
+loadAI r0, 40 => r4
+storeAI r4 => r1, 32
+loadAI r1, 32 => r2
+storeAI r2 => r0, 80
+loadAI r0, 80 => r4
+storeAI r4 => r1, 40
+loadAI r1, 40 => r2
+storeAI r2 => r0, 64
+loadAI r0, 80 => r4
+storeAI r4 => r1, 48
+loadAI r1, 48 => r2
+storeAI r2 => r0, 56
+loadAI r0, 64 => r4
+p_int r4
+halt

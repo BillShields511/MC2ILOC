@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.nio.file.Path;
 
 /**
- * Mini-C front-end driver: lex, parse, AST, and semantic checks (no ILOC / codegen).
+ * Mini-C compiler driver: lex, parse, AST, semantic checks, and ILOC generation.
  * Usage:
  *   java -cp ... Main              (read source from stdin)
  *   java -cp ... Main path/to/file.c
@@ -35,9 +35,6 @@ public class Main {
         SemanticAnalyzer sem = new SemanticAnalyzer();
         SemanticDiagnostics semDiag = sem.analyze(ast);
 
-        System.out.println("--- AST ---");
-        System.out.println(ast);
-
         if (!semDiag.ok()) {
             System.err.println("--- Semantic errors ---");
             for (String msg : semDiag.errors()) {
@@ -46,6 +43,9 @@ public class Main {
             System.exit(2);
         }
 
-        System.out.println("Parse and semantic checks passed.");
+        IlocGen gen = new IlocGen();
+        for (String line : gen.generate(ast)) {
+            System.out.println(line);
+        }
     }
 }
