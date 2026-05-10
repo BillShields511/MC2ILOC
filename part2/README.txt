@@ -1,43 +1,56 @@
-README for mini-c to ILOC frontend (part1.1)
+README for Mini-C to ILOC
 Bill Shields - jxh608
 
-This file explains the structure and scope of the project
-
-FOR INSTRUCTIONS ON HOW TO BUILD AND RUN THE SYSTEM, SEE:
-part1.1/input-samples/README.txt
+This file summarizes the structure and scope of the project. 
+For instructions on exactly how to build and run the project, see:
+    part2/input-samples/README.txt
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Core files:
-miniCLexer.g4
-miniCParser.g4
+Overview
 
-Main.java
-miniCAstBuilder.java
-SemType.java
-VarSymbol.java
-FuncSymbol.java
-Scope.java
-SemanticDiagnostics.java
-SemanticAnalyzer.java
-SourceSpan.java
+Mini-C is a small C-like source language described by miniCLexer.g4 / miniCParser.g4. MC2ILOC
+implements a compiler front end (parse tree → AST → semantic analysis) and back end that converts files
+written in Mini-C into an AST, then into textual ILOC (Intermediate Language for Optimizing Compilers).
 
-Additional files:
-README.txt
-input-samples/
-expected-output/
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Core files
 
-~Prerequisites~
-- Java JDK (javac, java) - same as the one installed in class
-- ANTLR 4 and an antlr4 helper script that sets CLASSPATH - same as installed in class
+Grammar / generated parser (via antlr4):
+  miniCLexer.g4
+  miniCParser.g4
 
-~General Notes~:
-- Do not delete the .g4 files or hand-written .java sources (including semantic analysis .java files).
+Driver and AST construction:
+  Main.java
+  miniCAstBuilder.java
+  SourceSpan.java
 
-~Language notes~
-- Part 1.1 targets lexer, parser, AST, and semantic analysis (no ILOC / codegen yet).
-- #include and other preprocessor directives are intentionally invalid syntax in Mini-C grammar
+Semantic analysis:
+  SemType.java
+  VarSymbol.java
+  FuncSymbol.java
+  Scope.java
+  SemanticDiagnostics.java
+  SemanticAnalyzer.java
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ILOC generation:
+  IRDataStructures.java
+  Emitter.java
+  APassASTtoIR.java              (AST → intermediate form)
+  BPassRegisterAllocator.java    (allocation pass)
+  IlocGen.java                   (orchestrates passes; produces output lines)
+
+Other layout under part2/
+  README.txt                     (this file)
+  input-samples/                  Mini-C example files and build/run instructions
+    README.txt
+    miniCTest*.c
+  expected-output/                Expected ILOC output for the two working example files
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Prerequisites
+  - Java JDK (javac, java), as used in course/lab setups
+  - ANTLR 4 and an antlr4 launcher that configures CLASSPATH (same as installed in class)
+

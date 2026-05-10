@@ -5,10 +5,10 @@ Please structure the contents of this git repository and the contents of nickle 
 
 MC2ILOC/
 |------> nickle/
-|------> part1.1/
+|------> part2/
 
-Note: nickle is NOT required for part1.1
+Note: nickle is NOT required for part 1
 nickle can be found at: https://github.com/drz64/nickle.git
 
-A README.txt describing the STRUCTURE AND SCOPE of the project can be found within the part1.1/ subdirectory
-A README.txt describing how to BUILD AND RUN the project can be found within the part1.1/input-samples/ subdirectory
+A README.txt describing the STRUCTURE AND SCOPE of the project can be found within the part2/ subdirectory
+A README.txt describing how to BUILD AND RUN the project can be found within the part2/input-samples/ subdirectory
